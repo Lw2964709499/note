@@ -94,3 +94,10 @@ repaint 的本质就是重新根据分层信息计算了绘制指令。
 因为 transform 既不会影响布局也不会影响绘制指令，它影响的只是渲染流程的最后一个「draw」阶段
 
 由于 draw 阶段在`合成线程`中，所以 transform 的变化几乎不会影响渲染主线程。反之，渲染主线程无论如何忙碌，也不会影响 transform 的变化。
+
+# 参考
+[浏览器渲染原理](https://developer.mozilla.org/zh-CN/docs/Web/Performance/How_browsers_work)
+
+[关键渲染路径](https://developer.mozilla.org/zh-CN/docs/Web/Performance/Critical_rendering_path)
+
+[掘金关键渲染路径](https://juejin.cn/post/7014365829672206367)
