@@ -75,7 +75,7 @@
 
 ### 开源协议
 可以通过网站 http://choosealicense.online/appendix/ 选择协议，并复制协议内容
-![开源协议](./images/license.png)
+<ImageView name='license.png' alt='开源协议'/>
 ### 如何发包
 要发布一个包到 NPM 上，可以按照以下步骤进行：
 1. 确保npm镜像为官网镜像。

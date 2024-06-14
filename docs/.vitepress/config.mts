@@ -44,6 +44,13 @@ export default defineConfig({
           { text: '事件循环', link: '/browser/event-loop' },
           { text: '渲染原理', link: '/browser/render' },
         ]
+      },
+      {
+        text: `计算机基础`,
+        collapsed: false,
+        items: [
+          { text: '网络', link: '/common/network' },
+        ]
       }
     ],
     outline:{
@@ -61,5 +68,5 @@ export default defineConfig({
       infoLabel: '信息',
       detailsLabel: '详细信息'
     }
-  }
+    }
 })

@@ -106,7 +106,7 @@ console.log('compile success!');
 
 babel是一个工具链，它本身并不具备任何转换能力，它只是提供了一个转换的插件机制，通过插件机制，我们可以实现各种转换功能。
 
-![babel工作流程](./images/babelProcess.png)
+<ImageView name='babelProcess.png' alt='babel工作流程'/>
 
 babel的转换过程分为三个阶段：
 
@@ -340,26 +340,26 @@ $duration: 400s;
 <StarTop></StarTop>
 
 目前的流程如下：
-![转换1](./images/cssProcess1.png)
+<ImageView name='cssProcess1.png' alt='转换1'/>
 ## 后处理器
 虽然生成的css代码能运行，但是还有一些问题需要处理，比如说**厂商前缀，类名冲突，代码剪枝**等等一系列问题，因此我们需要一些工具再次将生成的css代码进行转换。
-![转换2](./images/cssProcess2.png)
+<ImageView name='cssProcess2.png' alt='转换2'/>
 而以上等等一系列再次转换的工具我们称之为**后处理器**。
 
-![转换](./images/cssProcess.png)
+<ImageView name='cssProcess.png' alt='转换'/>
 
 既然都是转换，那么有没有一个工具将这些后处理器集成起来？
 ## postcss
 
 答案是肯定的，这就是**[PostCSS](https://www.postcss.com.cn/docs/)**。
 
-![postCss](./images/postCss.png)
+<ImageView name='postCss.png' alt='postCss'/>
 
 PostCss 工作流程如下：给我一个css经过一系列转换生成新的css，因此`PostCss`常被称为**后处理器**，虽然没错，但是`PostCss`的功能不止于此。
 
 它允许自定以`Parser(解析器)`,因此他其实可以将预处理也融合到`PostCss`中。
 
-![postCssWorkflow](./images/postCssProcess.png)
+<ImageView name='postCssProcess.png' alt='postCssWorkflow'/>
 
 `PostCss` 其实就是相当于`js`中的 `babel`,他也有自己的 **[插件生态](https://postcss.org/docs/postcss-plugins)**,以及**预设**;
 

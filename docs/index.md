@@ -18,4 +18,8 @@ features:
     details: 浏览器相关笔记
     link: /browser/event-loop
     linkText: 进入
+  - title: 计算机基础
+    details: 计算机通用知识
+    link: /common/network
+    linkText: 进入
 ---
