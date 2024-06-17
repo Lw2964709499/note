@@ -63,3 +63,174 @@ OSI 七层模型具有以下重要意义：
 
 ![image-20211008163458168](http://mdrs.yuanjin.tech/img/20211008163458.png)
 
+# 应用层协议
+
+## URL
+
+URL（Uniform Resource Locator）即统一资源定位符，它是一种用于标识互联网上资源的字符串。
+
+URL 通常由以下几个部分组成：
+<ImageView name='common3.png' alt="URL"/>
+
+他表达了：
+
+从网络中`哪台计算机(domain)`中的`哪个程序(port)`寻找`哪个服务(path)`,并注明了获取服务的`具体细节(query,hash)`,以及要用什么`协议(schema)`进行通信
+
+- **协议(schema)**：用于指定使用哪种协议来访问该资源，例如 HTTP、HTTPS、FTP 等。
+- **域名(domain)**：用于指定要访问的互联网服务器的地址，例如 www.baidu.com。
+- **端口号(port)**：用于指定要访问的互联网服务器的端口号，默认为 80。
+- **路径(path)**：用于指定要访问的互联网服务器的资源路径，例如 /index.html。
+- **查询参数(query)**：用于指定要传递给互联网服务器的参数，例如 ?name=John&age=25。
+- **哈希值(hash)**：用于指定页面内的特定位置，例如 #top。
+
+当协议为HTTP时，端口号为80，当协议为HTTPS时，端口号为443。这两个协议的端口号可以省略；
+`schema,domain,path` 这三者为必填项，其余为选填项。
+URL 通常用于在互联网上定位和访问各种资源，例如网页、文件、服务等。
+
+## 常见的应用层协议
+
+- **HTTP**：用于在互联网上传输网页和数据，是互联网上最常用的应用层协议。
+- **HTTPS**：是 HTTP 的安全版本，用于在互联网上传输敏感信息，例如信用卡号、密码等。
+- **FTP**：用于在互联网上传输文件，是互联网上最常用的应用层协议之一。
+- **SMTP**：用于在互联网上发送电子邮件，是互联网上最常用的应用层协议之一。
+
+## HTTP
+
+HTTP（HyperText Transfer Protocol）即超文本传输协议，是互联网上最常用的应用层协议之一。
+
+HTTP 是一种基于请求-响应模式的、无状态的、应用层的协议。
+
+### 传递消息模式
+将发送请求一方称之为客户端(Client)，将接收请求的一方称之为服务器(Server)
+<ImageView name="common4.png" alt="HTTP传递消息模式"  />  
+
+HTTP 的消息格式是一种纯文本的格式，由以下几个部分组成：
+
+- **起始行(start line)**：用于描述请求或响应的基本信息，例如请求方法、请求 URI、HTTP 版本等。
+- **消息头(header)**：用于描述请求或响应的附加信息，例如用户代理、内容类型等。
+- **空行**：用于分隔起始行和消息体。
+- **消息体(body)**：用于传输请求或响应的数据。
+
+比如以下一段请求报文
+
+```tx:line-numbers
+GET /index.html HTTP/1.1  
+Host: www.baidu.com
+Origin: https://www.baidu.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+```
+第一行为请求行，其余为请求头
+### 请求（Request）
+#### 请求方法
+
+**请求方法是请求行中的第一个单词，它向服务器描述了客户端发出请求的动作类型。在 HTTP 协议中，不同的请求方法只是包含了不同的语义，但服务器和浏览器的一些约定俗成的行为造成了它们具体的区别**
+
+<ImageView name="common5.png" alt="HTTP请求方法"  />  
+
+```js
+fetch('https://www.baidu.com', {
+  method: 'heiheihei', // 告诉百度，我这次请求是来嘿嘿嘿的
+});
+```
+上面的请求中，我们使用了自定义方法`heiheihei`。虽然百度服务器无法理解这样的请求是在干什么，但这样的请求也是可以正常发送到百度服务器的。
+
+在实践中，客户端和服务器慢慢的形成了一个共识，约定俗成的规定了一些常见的请求方法：
+
+- **GET**，表示向服务器获取资源。业务数据在请求行中，无须请求体
+- **POST**，表示向服务器提交信息，通常用于产生新的数据，比如注册。业务数据在请求体中
+- **PUT**，表示希望修改服务器的数据，通常用于修改。业务数据在请求体中
+- **DELETE**，表示希望删除服务器的数据。业务数据在请求行中，无须请求体。
+- **OPTIONS**，发生在跨域的预检请求中，表示客户端向服务器申请跨域提交
+- **TRACE**，回显服务器收到的请求，主要用于测试和诊断
+- **CONNECT**，用于建立连接管道，通常在代理场景中使用，网页中很少用到
+
+::: info GET 和 POST 的区别
+
+**由于浏览器和服务器约定俗称的规则**，造成了 GET 和 POST 请求在 web 中的区别：
+
+1. 浏览器在发送 GET 请求时，不会附带请求体
+2. GET 请求的传递信息量有限，适合传递少量数据；POST 请求的传递信息量是没有限制的，适合传输大量数据。
+3. GET 请求只能传递 ASCII 数据，遇到非 ASCII 数据需要进行编码；POST 请求没有限制
+4. 大部分 GET 请求传递的数据都附带在 path 参数中，能够通过分享地址完整的重现页面，但同时也暴露了数据，若有敏感数据传递，不应该使用 GET 请求，至少不应该放到 path 中
+5. 刷新页面时，若当前的页面是通过 POST 请求得到的，则浏览器会提示用户是否重新提交。若是 GET 请求得到的页面则没有提示。
+6. GET 请求的地址可以被保存为浏览器书签，POST 不可以
+::: 
+
+#### 请求头
+
+**请求头是请求行之后的消息头，用于描述请求的附加信息。**
+
+- **Host**：用于指定请求的服务器地址和端口号。
+- **Origin**：用于指定请求的源地址,一般只存在于 [CORS 跨域请求](../browser/cross-cros.md)中，非跨域请求没有该请求头。。
+- **User-Agent**：用于指定客户端的浏览器类型和版本。
+- **Accept**：告知服务器客户端能够接受的内容类型，以 MIME 类型的形式表达，比如：`text/html`,`application/json`,`text/plain`,`image/*` 等，更多请参考[MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+- **Accept-Encoding**：可接受的编码方式，如 `gzip` 等压缩格式。
+- **Authorization**：用于包含认证信息，如基本认证或令牌等。
+- **[Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control)**：控制缓存策略，如 `no-cache` 表示不使用缓存。
+- **Content-Length**：表示请求体的长度。
+- **Content-Type**：说明请求体的媒体类型，如 `application/json` 表示 JSON 数据。
+- **If-Modified-Since**：用于条件请求，如果自指定时间后资源未修改则返回 304 状态码。
+- **If-None-Match**：类似 If-Modified-Since，根据资源的 ETag 进行条件请求。
+- **Referer**：指示请求是从哪个页面链接过来的。
+#### 请求体
+请求体（Request Body）是在 HTTP 请求中用于承载要发送给服务器的具体数据的部分。
+
+以下是关于请求体的一些要点：
+
+**数据形式**：可以是各种格式的数据，比如表单数据（通常在 `application/x-www-form-urlencoded` 或 `multipart/form-data` 格式中）、JSON 数据（`application/json`）、XML 数据等。
+
+**用途**：用于传递客户端需要提交给服务器的详细信息，比如提交表单时的字段值、发送特定的参数、上传文件等。
+
+**存在情况**：并不是所有请求都有请求体，例如一些简单的 GET 请求通常没有请求体，而 POST、PUT 等请求常常包含请求体来携带重要数据。
+
+**大小限制**：可能会受到服务器配置、网络等因素的限制。
+
+请求体使得客户端能够向服务器发送更丰富、更具体的信息，以实现各种交互操作和数据传递需求。
+
+### 响应（Response）
+#### 响应行
+响应行由[状态码](https://www.runoob.com/http/http-status-codes.html)和状态码的文本描述组成，它们位于响应报文的起始行中。
+
+```txt
+HTTP/1.1 200 OK
+```
+
+状态码是三位数字，用于表示请求的处理结果。
+状态码的文本描述是状态码的英文解释，用于帮助用户理解状态码的含义。
+HTTP 定义了以下几种状态码：
+
+| 状态码 | 状态码的文本描述 |
+| - | - |
+|1xx|信息性状态码|
+|2xx|成功状态码|
+|3xx|重定向状态码|
+|4xx|客户端错误状态码|
+|5xx|服务器错误状态码|
+
+#### 响应头
+响应头是服务器返回给客户端的关于响应的一些元信息。以下是一些常见的响应头及其含义：
+
+**Content-Type**：指示响应体的内容类型，如 `application/json`、`text/html` 等。
+
+**Content-Length**：表示响应体的长度。
+
+**Location**：用于重定向时指定新的资源位置。
+
+**Set-Cookie**：设置客户端的 Cookie。
+
+**Server**：告知客户端服务器的信息。
+
+**Access-Control-Allow-Origin**：在跨域资源共享（CORS）中，指定允许访问该资源的源。
+
+**Cache-Control**：控制缓存策略。
+
+**Expires**：指定资源的过期时间。
+
+**Last-Modified**：表示资源最后一次修改的时间。
+
+**ETag**：资源的唯一标识。
+
+[HTTP表头参考](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers)

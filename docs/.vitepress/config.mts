@@ -43,6 +43,7 @@ export default defineConfig({
         items: [
           { text: '事件循环', link: '/browser/event-loop' },
           { text: '渲染原理', link: '/browser/render' },
+          { text: '跨域请求', link: '/browser/cros' },
         ]
       },
       {
