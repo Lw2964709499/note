@@ -111,18 +111,51 @@ HTTP 的消息格式是一种纯文本的格式，由以下几个部分组成：
 - **空行**：用于分隔起始行和消息体。
 - **消息体(body)**：用于传输请求或响应的数据。
 
-比如以下一段请求报文
+比如以下一段请求报文,以vscode的rest client插件为例
+::: code-group
 
-```tx:line-numbers
-GET /index.html HTTP/1.1  
-Host: www.baidu.com
-Origin: https://www.baidu.com
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-Accept-Encoding: gzip, deflate, br
-Accept-Language: zh-CN,zh;q=0.9
+```http:line-numbers [请求报文]
+GET /j/search_tags?type=movie&tag=%E7%83%AD%E9%97%A8&source=index HTTP/1.1
+Host: movie.douban.com
+
+
 ```
-第一行为请求行，其余为请求头
+```http:line-numbers [响应报文]
+HTTP/1.1 200 OK
+Date: Tue, 18 Jun 2024 12:46:44 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+X-Xss-Protection: 1; mode=block
+X-Douban-Mobileapp: 0
+Expires: Sun, 1 Jan 2006 01:00:00 GMT
+Pragma: no-cache
+Cache-Control: must-revalidate, no-cache, private
+Set-Cookie: ck="deleted"; max-age=0; domain=.douban.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; path=/,dbcl2="deleted"; max-age=0; domain=.douban.com; expires=Thu, 01-Jan-1970 00:00:00 GMT; path=/
+X-DAE-App: movie
+X-DAE-Instance: default
+Server: dae
+Strict-Transport-Security: max-age=15552000
+X-Content-Type-Options: nosniff
+Content-Encoding: gzip
+
+{
+  "tags": [
+    "热门",
+    "最新",
+    "豆瓣高分",
+    "冷门佳片",
+    "华语",
+    "欧美",
+    "韩国",
+    "日本"
+  ]
+}
+
+```
+:::
+请求体是不能省略的，只是因为该插件在发送请求时添加了换行符和请求体
+
 ### 请求（Request）
 #### 请求方法
 
@@ -234,3 +267,41 @@ HTTP 定义了以下几种状态码：
 **ETag**：资源的唯一标识。
 
 [HTTP表头参考](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers)
+
+### HTTP各版本差异
+HTTP 协议的不同版本包括 HTTP/1.0、HTTP/1.1 和 HTTP/2.0，每个版本都有一些特定的特性和改进，以下是它们的主要差异：
+#### HTTP/1.0
+  - **短连接**：每次请求/响应都需要建立一个新的 TCP 连接，完成后立即关闭连接， 连接的建立和销毁都会占用服务器和客户端的资源，造成内存资源和时间的浪费；
+  - **队头阻塞**：下一个 HTTP 请求必须在前一个 HTTP 响应到达之前才能发送，如果前一个 HTTP 响应一直不到达，那么下一个 HTTP 请求就不发送；
+  - **不支持断点续传**：如果客户端请求的资源特别大，服务器端发送这个资源的时间超出了客户端的超时时间，那么客户端就直接 close 这个 TCP 连接了；
+#### HTTP/1.1
+  - **长连接**：引入了持久连接，减少了连接建立和断开的开销，提高了性能；
+  - **管道化技术**：在长连接的基础上，允许单个 TCP 连接可以发送多个请求和接收多个响应，解决了 HTTP/1.0 的队头阻塞问题，但带来了新的队头阻塞问题；如下图：
+    - **服务器必须按照客户端请求的先后顺序依次回送相应的结果，以保证客户端能够区分出每次请求的响应内容**。如果最先收到的请求的处理时间长，响应生成也慢，就会阻塞已经生成了的响应的发送。
+    <ImageView name="common6.png" alt="HTTP/1.1 管道化技术"/>
+    - 常见解决方案：
+      1. 通过减少文件数量，从而减少队头阻塞的几率
+      2. 通过开辟多个TCP连接，实现真正的、有缺陷的并行传输。浏览器会根据情况，为打开的页面自动开启TCP连接，对于`同一个域名`的连接最多6个，如果要突破这个限制，就需要把资源放到不同的域中
+    现代浏览器一般时默认不开启管道化技术。
+  - **新增方法**：PUT、PATCH、OPTIONS、DELETE；
+  - **缓存控制**：引入了更强大和灵活的`缓存控制机制`，包括 `Cache-Control` 头部，可以通过指定缓存的有效期、是否可缓存、是否可被代理服务器缓存等属性来控制缓存行为,而HTTP1.0 只能通过 `Expires`进行简单的控制；
+    - **Cache-Control 头部**：它提供了非常详细的缓存控制指令，如 `max-age` 可以明确指定资源在多少秒内有效可直接使用而无需再次请求；`no-cache` 表示需要先与服务器验证等。
+    - **Expires 头部**：指定一个绝对时间，在此时间之前可以直接使用缓存。
+    - **Last-Modified 和 If-Modified-Since 头部组合**：服务器发送资源时带上 `Last-Modified` 表示资源最后修改时间，客户端后续请求时通过 `If-Modified-Since` 带上上次收到的该值，服务器据此判断资源是否有更新。
+    - **ETag 和 If-None-Match 头部组合**：服务器为资源生成一个`唯一标识（ETag）`，客户端请求时通过 `If-None-Match` 带上该值，服务器根据其来确定资源状态。这些机制使得缓存的管理更加灵活和准确，能够更好地适应不同场景下对缓存的需求。
+  - **错误处理**：引入了更多的状态码，以更精确地表示请求过程中的不同状态，例如 100 Continue、206 Partial Content 等；
+#### HTTP/2.0
+  - **二进制分帧层**：HTTP/2中的二进制分帧是该协议的一项重要特性，**它在应用层（HTTP/2）和传输层（TCP 或 UDP）之间增加了一个二进制分帧层**。这是 HTTP/2中最大的改变，也是其性能比 HTTP/1.1有大幅提高的重要原因之一
+    <ImageView name="common7.png" alt="HTTP/2 二进制分帧层" align='center'/>
+    - 在二进制分帧层中，HTTP/2将所有传输的信息分割为更小的消息和帧，并对它们采用二进制格式的编码。这一特性使得 HTTP/2在处理请求和响应时更加高效。具体而言，HTTP/2中的帧包含以下部分：
+      - **类型**：帧的类型，如 DATA、HEADERS、PRIORITY 等。
+      - **长度**：帧的长度。
+      - **标记**：帧的标记。
+      - **流标识**：用于标识帧所属的流。
+      - **帧有效载荷**：帧所携带的数据。
+  - **多路复用**：可以在单个 TCP 连接上同时发送多个请求和接收多个响应，实现了请求/响应的并行传输，提高了性能；
+  - **头部压缩**：使用 HPACK 算法对请求/响应头部进行压缩，减小了头部的大小，降低了通信开销；
+  - **服务器推送**：允许服务器主动向客户端推送资源，当客户端请求某个资源时，服务器可以预测客户端需要的其他资源并主动推送给客户端，提高了页面加载速度；
+  - **流量控制和优先级**：支持流量控制和优先级控制，可以根据资源的重要性和紧急程度进行有效的调度和分配，提高了网络的利用率和性能；
+  - **单连接并发数限制**：中的多路复用机制可以在单个 TCP 连接上同时处理多个请求/响应，减少了 TCP 连接的数量，降低了服务器和客户端的负载。
+

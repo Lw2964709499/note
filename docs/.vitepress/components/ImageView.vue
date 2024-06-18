@@ -1,5 +1,5 @@
 <template>
-  <img :src="imageMap[name]" :alt="alt" @click="visible = true" />
+  <img :src="imageMap[name]" :alt="alt" @click="visible = true" v-bind="$attrs" />
   <Teleport to="body">
     <div class="image-viewer" @click="visible = false" v-if="visible">
       <img class="big-preview" :src="imageMap[name]" :alt="alt" />
@@ -19,7 +19,6 @@ const imageMap = Object.keys(images).reduce((acc, key) => {
   acc[name] = image;
   return acc;
 }, {});
-console.log(imageMap);
 const visible = ref(false);
 defineProps({
   name: {
@@ -29,9 +28,6 @@ defineProps({
   alt: String,
 });
 
-const img = ref(null);
-
-console.log(img.value);
 </script>
 
 <style lang="scss" scoped>

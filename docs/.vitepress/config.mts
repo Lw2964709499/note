@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "FrontEnd-Blog",
   description: "前端开发随笔",
-  base:'/note/',
+  base: '/note/',
   lastUpdated: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -54,14 +54,15 @@ export default defineConfig({
         ]
       }
     ],
-    outline:{
-      level:[ 1, 5 ]
+    outline: {
+      level: [1, 5]
     },
     socialLinks: [
       { icon: 'github', link: 'https://gitee.com/god2964709499/note/tree/master' }
     ]
   },
   markdown: {
+    lineNumbers: true,
     container: {
       tipLabel: '提示',
       warningLabel: '警告',
@@ -69,5 +70,5 @@ export default defineConfig({
       infoLabel: '信息',
       detailsLabel: '详细信息'
     }
-    }
+  }
 })
