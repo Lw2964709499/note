@@ -20,6 +20,6 @@ features:
     linkText: 进入
   - title: 计算机基础
     details: 计算机通用知识
-    link: /common/network
+    link: /common/network/index
     linkText: 进入
 ---
