@@ -55,6 +55,8 @@ export default defineConfig({
               { text: "网络模型", link: "/common/network/index" },
               { text: "HTTP", link: "/common/network/http" },
               { text: "HTTP缓存", link: "/common/network/httpCache" },
+              { text: "TCP", link: "/common/network/tcp" },
+              { text: "常见网络攻击", link: "/common/network/safe" },
             ],
           },
         ],

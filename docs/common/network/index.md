@@ -58,4 +58,4 @@ OSI 七层模型具有以下重要意义：
 
 # 数据的封装和解封装
 
-![image-20211008163458168](http://mdrs.yuanjin.tech/img/20211008163458.png)
+<ImageView name="common14.png"></ImageView>
