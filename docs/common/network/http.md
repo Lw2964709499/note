@@ -133,7 +133,7 @@ fetch('https://www.baidu.com', {
 **请求头是请求行之后的消息头，用于描述请求的附加信息。**
 
 - **Host**：用于指定请求的服务器地址和端口号。
-- **Origin**：用于指定请求的源地址,一般只存在于 [CORS 跨域请求](../../browser/cross-cros.md)中，非跨域请求没有该请求头。。
+- **Origin**：用于指定请求的源地址,一般只存在于 [CORS 跨域请求](../../browser/cros.md)中，非跨域请求没有该请求头。。
 - **User-Agent**：用于指定客户端的浏览器类型和版本。
 - **Accept**：告知服务器客户端能够接受的内容类型，以 MIME 类型的形式表达，比如：`text/html`,`application/json`,`text/plain`,`image/*` 等，更多请参考[MIME 类型](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
 - **Accept-Encoding**：可接受的编码方式，如 `gzip` 等压缩格式。
