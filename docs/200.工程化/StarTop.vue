@@ -16,6 +16,8 @@ import { ref } from "vue";
 const visible = ref(false);
 </script>
 <style lang="scss" scoped>
+@use "sass:math";
+@use "sass:string";
 .sass-button {
   padding: 4px 8px;
   border-radius: 4px;
@@ -52,17 +54,17 @@ const visible = ref(false);
 }
 
 @function createShadow($n) {
-  $shadow: "#{random(100)}vw #{random(100)}vh #fff";
+  $shadow: "#{math.random(100)}vw #{math.random(100)}vh #fff";
   @for $i from 2 through $n {
-    $shadow: "#{$shadow}, #{random(100)}vw #{random(100)}vh #fff";
+    $shadow: "#{$shadow}, #{math.random(100)}vw #{math.random(100)}vh #fff";
   }
-  @return unquote($shadow);
+  @return string.unquote($shadow);
 }
 $count: 1000;
 $duration: 400s;
 @for $i from 1 through 5 {
-  $count: floor(calc($count / 2));
-  $duration: floor(calc($duration / 2));
+  $count: math.floor(calc($count / 2));
+  $duration: math.floor(calc($duration / 2));
   .sass-demo-layer#{$i} {
     $size: #{$i}px;
     position: fixed;
