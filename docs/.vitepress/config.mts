@@ -11,7 +11,7 @@ import { Nav } from "./ConfigHyde/Nav"; // 导入Nav模块
 import type { HeadConfig } from "vitepress"; // 在文件顶部添加类型导入
 import { HeadData } from "./ConfigHyde/Head"; // 导入 HeadData 导入和类型断言
 import { SocialLinks } from "./ConfigHyde/SocialLinks"; //导入社交链接配置
-import { FooterGroup } from "./ConfigHyde/FooterGroup"; //导入页脚信息组配置
+import { FooterGroup } from "./ConfigHyde/footerGroup"; //导入页脚信息组配置
 import { Wallpaper } from "./ConfigHyde/Wallaper"; // 导入Wallaper模块
 import { visualizer } from "rollup-plugin-visualizer"; // 导入可视化分析插件
 import viteImagemin from "vite-plugin-imagemin"; // 导入图片压缩插件
