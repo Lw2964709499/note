@@ -13,8 +13,6 @@ import { HeadData } from "./ConfigHyde/Head"; // 导入 HeadData 导入和类型
 import { SocialLinks } from "./ConfigHyde/SocialLinks"; //导入社交链接配置
 import { FooterGroup } from "./ConfigHyde/footerGroup"; //导入页脚信息组配置
 import { Wallpaper } from "./ConfigHyde/Wallaper"; // 导入Wallaper模块
-// import viteImagemin from "vite-plugin-imagemin"; // 导入图片压缩插件
-// import llmstxt from "vitepress-plugin-llms"; // 导入llmstxt插件
 const description = [
   "欢迎来到 vitepress-theme-teek 使用文档",
   "Teek 是一个基于 VitePress 构建的主题，是在默认主题的基础上进行拓展，支持 VitePress 的所有功能、配置",
@@ -153,7 +151,7 @@ const teekConfig = defineTeekConfig({
 
 export default defineConfig({
   extends: teekConfig,
-  // base: "/note/",
+  base: "/note/",
   title: "Wg Blog",
   description: description,
   cleanUrls: true,
