@@ -13,10 +13,8 @@ import { HeadData } from "./ConfigHyde/Head"; // 导入 HeadData 导入和类型
 import { SocialLinks } from "./ConfigHyde/SocialLinks"; //导入社交链接配置
 import { FooterGroup } from "./ConfigHyde/footerGroup"; //导入页脚信息组配置
 import { Wallpaper } from "./ConfigHyde/Wallaper"; // 导入Wallaper模块
-import { visualizer } from "rollup-plugin-visualizer"; // 导入可视化分析插件
-import viteImagemin from "vite-plugin-imagemin"; // 导入图片压缩插件
-import llmstxt from "vitepress-plugin-llms"; // 导入llmstxt插件
-import { La51Plugin } from "vitepress-plugin-51la"; // 导入51la统计插件
+// import viteImagemin from "vite-plugin-imagemin"; // 导入图片压缩插件
+// import llmstxt from "vitepress-plugin-llms"; // 导入llmstxt插件
 const description = [
   "欢迎来到 vitepress-theme-teek 使用文档",
   "Teek 是一个基于 VitePress 构建的主题，是在默认主题的基础上进行拓展，支持 VitePress 的所有功能、配置",
@@ -118,15 +116,15 @@ const teekConfig = defineTeekConfig({
       md.use(groupIconMdPlugin); // 代码组图标插件
     },
   },
-   // 站点分析
-   siteAnalytics: [
-    {
-      provider: "google",
-      options: {
-        id: "G-YDTSLB09YH",
-      },
-    },
-  ],
+  //  // 站点分析
+  //  siteAnalytics: [
+  //   {
+  //     provider: "google",
+  //     options: {
+  //       id: "G-YDTSLB09YH",
+  //     },
+  //   },
+  // ],
   articleShare: { enabled: true }, // 文章分享
   footerGroup: FooterGroup, // 页脚信息组配置
   // 精选文章卡片
@@ -155,7 +153,7 @@ const teekConfig = defineTeekConfig({
 
 export default defineConfig({
   extends: teekConfig,
-  base: "/note/",
+  // base: "/note/",
   title: "Wg Blog",
   description: description,
   cleanUrls: true,
@@ -203,41 +201,12 @@ export default defineConfig({
   vite: {
     plugins: [
       groupIconVitePlugin(),
-      viteImagemin({
-        gifsicle: { optimizationLevel: 7 },
-        mozjpeg: { quality: 70 },
-        pngquant: { quality: [0.7, 0.8] },
-        svgo: {
-          plugins: [
-            { name: "removeViewBox" },
-            { name: "removeEmptyAttrs", active: false },
-          ],
-        },
-      }),
-      llmstxt(),
-      La51Plugin({
-        id: "3MQCwI1AgSSiVg37", //动态掩码，防止 SDK 被盗刷
-        ck: "3MQCwI1AgSSiVg37", //一个网站多个统计 ID 的数据分离标识
-        autoTrack: true, //开启事件分析功能,用于定义和追踪用户在产品（网站/APP等）上的各类行为，如点击、浏览、停留等。默认为false
-        hashMode: true, // 开启单页面应用模式,如使用了Vue / React等框架构建的单页面应用网站，默认为true
-        screenRecord: true, //开启屏幕录制功能,默认为false
-        apply: "build", //'build' 构建时生效，'serve' 开发时生效，'all' 所有阶段生效
-        importMode: "sync", //sync' 同步加载，'async' 异步加载，'old' 旧式安装
-      }),
     ],
     build: {
       chunkSizeWarningLimit: 1500, // 限制警告的块大小
       assetsInlineLimit: 4096, // 小于 4KB 的字体转为 base64
       minify: "terser", // 使用 Terser 进行代码压缩
       rollupOptions: {
-        plugins: [
-          visualizer({
-            filename: "../stats.html",
-            open: false, // 打包后自动打开报告
-            gzipSize: true, // 压缩大小
-            brotliSize: true,
-          }),
-        ],
         output: {
           manualChunks: {
             theme: ["vitepress-theme-teek"],

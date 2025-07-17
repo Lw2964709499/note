@@ -24,7 +24,7 @@ export const teekBlogCommonConfig: TeekConfig = {
     // 博主信息，显示在首页侧边栏
     avatar: "/avatar/avatar.webp",
     shape: "circle-rotate", // 头像风格：square 为方形头像，circle 为圆形头像，circle-rotate 可支持鼠标悬停旋转
-    name: "Hyde",
+    name: "Wg",
     slogan: "人心中的成见是一座大山~",
     circleBgImg: "/avatar/circleBgImg.webp", // 头像圆形背景图
   },
@@ -60,28 +60,28 @@ export const teekBlogCommonConfig: TeekConfig = {
   social: SocialDate, //社交信息配置
   footerInfo: FooterInfo, // 底部信息配置,
   // 站点信息卡片配置
-  docAnalysis: {
-    enabled: true,
-    createTime: "2021-10-19",
-    wordCount: true,
-    readingTime: true,
-    statistics: {
-      provider: "busuanzi", //是否开启首页的访问量和排名统计，仅当 provider 存在生效
-      siteView: true, //是否开启文章页的浏览量统计，仅当 provider 存在生效
-      pageView: true, //如果请求不蒜子接口失败，是否重试，类型 boolean
-      tryRequest: true, //重试次数，仅当 tryRequest 为 true 时有效
-      tryCount: 2000, //重试间隔时间，单位毫秒，仅当 tryRequest 为 true 时有效目录链接
-    },
-    overrideInfo: [
-      {
-        key: "lastActiveTime",
-        label: "活跃时间",
-        value: (_, currentValue) => (currentValue + "").replace("前", ""),
-        show: true,
-      },
-    ],
-    appendInfo: [{ key: "index", label: "序号", value: "Hyde" }],
-  },
+  // docAnalysis: {
+  //   enabled: true,
+  //   createTime: "2021-10-19",
+  //   wordCount: true,
+  //   readingTime: true,
+  //   statistics: {
+  //     provider: "busuanzi", //是否开启首页的访问量和排名统计，仅当 provider 存在生效
+  //     siteView: true, //是否开启文章页的浏览量统计，仅当 provider 存在生效
+  //     pageView: true, //如果请求不蒜子接口失败，是否重试，类型 boolean
+  //     tryRequest: true, //重试次数，仅当 tryRequest 为 true 时有效
+  //     tryCount: 2000, //重试间隔时间，单位毫秒，仅当 tryRequest 为 true 时有效目录链接
+  //   },
+  //   overrideInfo: [
+  //     {
+  //       key: "lastActiveTime",
+  //       label: "活跃时间",
+  //       value: (_, currentValue) => (currentValue + "").replace("前", ""),
+  //       show: true,
+  //     },
+  //   ],
+  //   appendInfo: [{ key: "index", label: "序号", value: "Hyde" }],
+  // },
 };
 
 // 博客默认配置
