@@ -10,14 +10,4 @@ export const FooterGroup = [
 
     ],
   },
-  {
-    title: "服务",
-    links: [
-      {
-        name: "站点统计",
-        link: "https://umami.seasir.top/share/rvVBNZWa0sUCN6wG/teek.seasir.top",
-      },
-      { name: "站点状态", link: "https://status.seasir.top/" },
-    ],
-  },
 ];

@@ -10,6 +10,12 @@ export const FriendLink = {
   // 友情链接数据列表
   list: [
     {
+      avatar: "https://vitepress.dev/vitepress-logo-mini.svg",
+      name: "VitePress",
+      desc: "✨VitePress 是一个静态站点生成器 (SSG)，专为构建快速、以内容为中心的站点而设计",
+      link: "https://vitepress.dev/zh/guide/what-is-vitepress",
+    },
+    {
       avatar: "https://vp.teek.top/teek-logo-large.png",
       name: "Teek VitePress主题",
       desc: "✨一个轻量、简洁高效、灵活配置、易于扩展的 VitePress 主题。",

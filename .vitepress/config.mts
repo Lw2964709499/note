@@ -114,15 +114,6 @@ const teekConfig = defineTeekConfig({
       md.use(groupIconMdPlugin); // 代码组图标插件
     },
   },
-  //  // 站点分析
-  //  siteAnalytics: [
-  //   {
-  //     provider: "google",
-  //     options: {
-  //       id: "G-YDTSLB09YH",
-  //     },
-  //   },
-  // ],
   articleShare: { enabled: true }, // 文章分享
   footerGroup: FooterGroup, // 页脚信息组配置
   // 精选文章卡片

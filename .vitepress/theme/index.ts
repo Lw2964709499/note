@@ -3,10 +3,9 @@ import Teek from "vitepress-theme-teek";
 import TeekLayoutProvider from "./components/TeekLayoutProvider.vue";
 import { defineComponent, h } from "vue";
 import { useData } from "vitepress";
-// import notice from "./components/notice.vue";
 import MNavLinks from "./components/MNavLinks.vue"; // 引入导航组件
 import confetti from "./components/Confetti.vue"; //导入五彩纸屑组件
-// import NotFound from "./components/NotFound.vue"; // 导入404组件
+import NotFound from "./components/NotFound.vue"; // 导入404组件
 import NavIcon from "./components/NavIcon.vue"; //导入导航栏图标
 
 // Teek 在线主题包引用（需安装 Teek 在线版本）
@@ -43,6 +42,7 @@ export default {
     app.component("MNavLinks", MNavLinks); // 注册导航组件
     app.component("confetti", confetti); // 注册五彩纸屑组件
     app.component("NavIcon", NavIcon); //导航栏图标
+    app.component("NotFound", NotFound); //404
 
     // 非SSR环境下配置路由进度条
     // @ts-ignore-error

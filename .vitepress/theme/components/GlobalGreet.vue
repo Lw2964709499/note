@@ -33,18 +33,20 @@ const greet = () => {
 };
 
 const getGreetingMessage = (hours: number, timeStr: string) => {
-  if (hours >= 6 && hours < 9) {
+ if (hours >= 8 && hours < 10) {
     return `早上好呀~，现在是 ${timeStr}，吃早餐了吗？😊🤭`;
   }
-  if (hours >= 9 && hours < 12) {
+  if (hours >= 10 && hours < 13) {
     return `上午好呀~，现在是 ${timeStr}，该准备吃饭啦🥗🍖~`;
   }
-
-  if (hours >= 12 && hours < 16) {
+  if (hours >= 13 && hours < 14) {
+    return `中午好呀~，现在是 ${timeStr}，该午睡啦😪💤~`;
+  }
+  if (hours >= 14 && hours < 17) {
     return `下午好呀~，现在是 ${timeStr}，繁忙的下午也要适当休息哦🥤🏀~`;
   }
 
-  if (hours >= 16 && hours < 19) {
+  if (hours >= 17 && hours < 19) {
     return `到黄昏了~，现在是 ${timeStr}，该准备吃饭啦🥗🍖~`;
   }
 
@@ -52,7 +54,7 @@ const getGreetingMessage = (hours: number, timeStr: string) => {
     return `晚上好呀~，现在是 ${timeStr}，该准备洗漱睡觉啦🥱😪~`;
   }
 
-  if (hours >= 22 || hours < 6) {
+  if (hours >= 0 && hours < 6) {
     return `别再熬夜了~，现在是 ${timeStr}，早点睡吧，让我们一起欣赏早上的太阳~😇🛏`;
   }
 
