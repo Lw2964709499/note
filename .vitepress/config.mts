@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vitepress";
 import { defineTeekConfig } from "vitepress-theme-teek/config";
 
@@ -49,19 +48,13 @@ const teekConfig = defineTeekConfig({
   articleAnalyze: {
     imageViewer: { hideOnClickModal: true }, // 图片预览是否点击遮罩层关闭}
     showIcon: true, // 作者、日期、分类、标签、字数、阅读时长、浏览量等文章信息的图标是否显示
-    dateFormat: "yyyy-MM-dd hh:mm:ss", // 文章日期格式，首页和文章页解析日期时使用
+    dateFormat: "yyyy-MM-dd", // 文章日期格式，首页和文章页解析日期时使用
     showInfo: true, // 是否展示作者、日期、分类、标签、字数、阅读时长、浏览量等文章信息，分别作用于首页和文章页
-    showAuthor: true, // 是否展示作者
+    showAuthor: false, // 是否展示作者
     showCreateDate: true, // 是否展示创建日期
     showUpdateDate: true, // 是否展示更新日期，是否展示更新时间，仅在文章页显示
     showCategory: true, // 是否展示分类
     showTag: true, // 是否展示标签
-    // 将文章信息传到一级标题下面
-    teleport: {
-      selector: "h1",
-      position: "after",
-      className: "h1-bottom-info",
-    },
   },
   // 超过半年的文章自动提示文章内容可能已过时
   articleTopTip: (frontmatter) => {
@@ -122,7 +115,7 @@ const teekConfig = defineTeekConfig({
     limit: 5, // 一页显示的数量
     autoPage: false, // 是否自动翻页
     pageSpeed: 4000, // 翻页间隔时间，单位：毫秒。autoPage 为 true 时生效
-    dateFormat: "yyyy-MM-dd hh:mm:ss", // 精选文章的日期格式
+    dateFormat: "yyyy-MM-dd", // 精选文章的日期格式
   },
   themeSize: "large",
   articleBottomTip: () => {
@@ -136,7 +129,6 @@ const teekConfig = defineTeekConfig({
     };
   },
 });
-
 
 // https://vitepress.dev/reference/site-config
 
@@ -188,9 +180,7 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [
-      groupIconVitePlugin(),
-    ],
+    plugins: [groupIconVitePlugin()],
     build: {
       chunkSizeWarningLimit: 1500, // 限制警告的块大小
       assetsInlineLimit: 4096, // 小于 4KB 的字体转为 base64
