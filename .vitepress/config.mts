@@ -99,8 +99,12 @@ const teekConfig = defineTeekConfig({
           : undefined;
       },
     },
+    
   },
-
+  riskLink: {
+    enabled: true,
+    whitelist: ["https://lw2964709499.github.io/note/", /https:\/\/github.com/],
+  },
   markdown: {
     config: (md) => {
       md.use(timeline); //时间线插件
@@ -136,6 +140,7 @@ export default defineConfig({
   extends: teekConfig,
   base: "/note/",
   title: "Wg Blog",
+  srcExclude: ['./README.md', '**/TODO.md'],
   description: description,
   cleanUrls: true,
   lastUpdated: true, // 显示最后更新时间
