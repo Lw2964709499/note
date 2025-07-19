@@ -11,8 +11,12 @@
 // 页头横条隐藏线
 .vp-doc h2 {
   border-top: none;
+  margin: 20px 0px;
+  padding: 0;
 }
-
+.vp-doc p {
+  margin: 12px 0 0 0;
+}
 // 页脚横条隐藏线
 .prev-next {
   border-top: none !important;
