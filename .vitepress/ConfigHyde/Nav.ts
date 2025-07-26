@@ -50,10 +50,6 @@ export const Nav= [
           { text: "文章标签", link: "/tags/" },
           { text: "文章归档", link: "/archives/" },
           { text: "文章清单", link: "/articleOverview/" },
-          {
-            text: "风险提示",
-            link: "/risk-link?target=https://github.com/Lw2964709499/note/",
-          },
         ],
       },
     ],

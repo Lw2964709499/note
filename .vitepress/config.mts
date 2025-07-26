@@ -101,10 +101,6 @@ const teekConfig = defineTeekConfig({
     },
     
   },
-  riskLink: {
-    enabled: true,
-    whitelist: ["https://lw2964709499.github.io/note/", /https:\/\/github.com/],
-  },
   markdown: {
     config: (md) => {
       md.use(timeline); //时间线插件
